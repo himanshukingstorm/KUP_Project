@@ -1,15 +1,15 @@
 pipeline  {
   agent any
   
-//   triggers  {
-//     githubPullRequest (
-//       triggerOnPush: true,
-//       triggerOnSchedule: false,
-//       triggerOnPoll: false,
-//       branchFilterType: 'All',
-//       cron: ''
-//                       )
-//             }
+  triggers  {
+    githubPullRequest (
+      triggerOnPush: true,
+      triggerOnSchedule: false,
+      triggerOnPoll: false,
+      branchFilterType: 'All',
+      cron: ''
+                      )
+            }
   
   stages    {
    stage('Build') {
