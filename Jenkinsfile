@@ -1,17 +1,31 @@
 pipeline  {
   agent any
   
-  triggers  {
-    githubPullRequest (
-      triggerOnPush: true,
-      triggerOnSchedule: false,
-      triggerOnPoll: false,
-      branchFilterType: 'All',
-      cron: ''
-                      )
-            }
+//   triggers  {
+//     githubPullRequest (
+//       triggerOnPush: true,
+//       triggerOnSchedule: false,
+//       triggerOnPoll: false,
+//       branchFilterType: 'All',
+//       cron: ''
+//                       )
+//             }
   
   stages    {
+   stage('Build') {
+                  when {
+                    anyOf {
+                      branch 'feature/*'
+//                       branch 'develop'
+                          }
+                       }
+                     steps {
+                        sh 'docker build -t todo-app-py:V.$GIT_COMMIT .'
+                        echo "This is Build Based on Docker Image version $GIT_COMMIT"
+                        echo "Build Success"
+                           }
+                  }
+      
     stage('Test') {
                     when {
                       anyOf {
@@ -22,41 +36,41 @@ pipeline  {
                       sh 'echo "Test Success"'
                           }
                   }
-    
-    stage('Build') {
-            //       when {
-            //         anyOf {
-            //           branch 'master'
-            //               }
-            //            }
-                     steps {
-                        sh 'docker build -t todo-app-py:V.$GIT_COMMIT .'
-                        echo "This is Build Based on Docker Image version $GIT_COMMIT"
-                           }
-                  }
       
-    
     stage('Login Dockerhub') {
+                  when {
+                    anyOf {
+                      branch 'develop'
+                          }
+                       }
+
                     steps {
                       withCredentials([string(credentialsId: 'kingstorm_dh', variable: 'DOCKER_TOKEN')]) {
                         sh "docker login -u himanshukingstorm -p $DOCKER_TOKEN"}                    
-                          echo "Logged In Successfully"
+                          echo "Logged In Successfully into Dockerhub"
                           }
                   }
     
     stage('Push into Dockerhub') {
+                  when {
+                    anyOf {
+                      branch 'develop'
+                          }
+                       }
+
                     steps {
                       sh "docker tag todo-app-py:V.$BUILD_NUMBER himanshukingstorm/todo-app-py:V.$GIT_COMMIT"
                       sh "docker push himanshukingstorm/todo-app-py:V.$GIT_COMMIT"
 
-                        echo "This is Push Based on Docker Image as Version :V.$GIT_COMMIT"
+                        echo "This Push is Based on Docker Image as Version :V.$GIT_COMMIT"
+                        echo "Pushed with Success into Dockerhub"
                           }
                   }
 
     stage('Deploy') {
                     when {
                       anyOf {
-                        branch 'production'
+                        branch 'main'
                             }
                           }
                     steps {
