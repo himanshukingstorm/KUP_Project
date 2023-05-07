@@ -77,7 +77,7 @@ pipeline  {
                         echo "Pushed with Success into Dockerhub"
                           }
                   }
-    stage ('Update Manifest){
+    stage ('Update Manifest'){
            when {
                       anyOf {
                         branch 'main'
