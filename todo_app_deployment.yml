@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: todo-app
+  template:
+    metadata:
+      labels:
+        run: todo-app
+    spec:
+      containers:
+        - name: todo-app
+          image: himanshukingstorm/todo-app-py:V.$GIT_COMMIT
+          ports:
+            - containerPort: 5000
+            
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-app
+  labels:
+    run: todo-app
+
+spec:
+  selector:
+    run: todo-app
+  type: NodePort
+  ports:
+    - port: 5000
+      protocol: "TCP"
+      targetPort: 5000
+      nodePort: 30301
