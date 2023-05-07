@@ -17,6 +17,7 @@ pipeline  {
                     anyOf {
                       branch 'feature/*'
                       branch 'develop'
+                      branch 'main'
                           }
                        }
                      steps {
@@ -35,6 +36,7 @@ pipeline  {
                       anyOf {
                         branch 'feature/*'
                         branch 'develop'
+                        branch 'main'
                             }
                          }
                     steps {
