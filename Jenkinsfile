@@ -87,7 +87,7 @@ pipeline  {
            steps {
                 sh "echo $BUILD_ID"
 
-//sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\${env.BUILD_ID}|' todo_app_deployment.yml"
+sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\${env.BUILD_ID}|' todo_app_deployment.yml"
 //      sh "echo $BUILD_ID > build_id.txt"
 //   sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v$(cat build_id.txt)|' todo_app_deployment.yml"
            }
