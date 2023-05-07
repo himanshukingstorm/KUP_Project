@@ -24,8 +24,8 @@ pipeline  {
                         echo "Build Number:  $BUILD_NUMBER  Build ID: $BUILD_ID BUILD_TAG: $BUILD_TAG"
                         echo "GIT_COMMIT: $GIT_COMMIT JOB_NAME: $JOB_NAME"
                        
-                        sh 'docker build -t todo-app-py:V.$BUILD_TAG .'
-                        echo "This is Build Based on Docker Image version $BUILD_TAG"
+                        sh 'docker build -t todo-app-py:V.$BUILD_ID .'
+                        echo "This is Build Based on Docker Image version $BUILD_ID"
                         echo "Build Success"
                            }
                   }
@@ -68,10 +68,10 @@ pipeline  {
                        }
 
                     steps {
-                      sh "docker tag todo-app-py:V.$BUILD_TAG himanshukingstorm/todo-app-py:V.$BUILD_TAG"
-                      sh "docker push himanshukingstorm/todo-app-py:V.$BUILD_TAG"
+                      sh "docker tag todo-app-py:V.$BUILD_ID himanshukingstorm/todo-app-py:V.$BUILD_ID"
+                      sh "docker push himanshukingstorm/todo-app-py:V.$BUILD_ID"
 
-                        echo "This Push is Based on Docker Image as Version :V.$BUILD_TAG"
+                        echo "This Push is Based on Docker Image as Version :V.$BUILD_ID"
                         echo "Pushed with Success into Dockerhub"
                           }
                   }
