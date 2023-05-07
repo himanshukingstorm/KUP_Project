@@ -84,29 +84,30 @@ pipeline  {
                          }
                 }
            
-       steps {
-                script {
-                    // Read the original YAML file
-                    def yamlContent = readFile 'todo_app_deployment.yml'
+//        steps {
+//                 script {
+//                     // Read the original YAML file
+//                     def yamlContent = readFile 'todo_app_deployment.yml'
                     
-                    // Modify the YAML content using Jenkins environment variables
-                    def modifiedYamlContent = yamlContent.replace('image: himanshukingstorm/todo-app-py:v${BUILD_ID}', 'image: himanshukingstorm/todo-app-py:v' + env.BUILD_ID)
+//                     // Modify the YAML content using Jenkins environment variables
+//                     def modifiedYamlContent = yamlContent.replace('image: himanshukingstorm/todo-app-py:v${BUILD_ID}', 'image: himanshukingstorm/todo-app-py:v' + env.BUILD_ID)
                     
-                    // Write the modified YAML back to the file
-                    writeFile file: 'todo_app_deployment.yml', text: modifiedYamlContent
-                }
+//                     // Write the modified YAML back to the file
+//                     writeFile file: 'todo_app_deployment.yml', text: modifiedYamlContent
+//                 }
       
       
       
       
       
-//            steps {
-//                 sh "echo $BUILD_ID"
+           steps {
+                sh "echo $BUILD_ID"
 
-// // sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\${env.BUILD_ID}|' todo_app_deployment.yml"
-// //      sh "echo $BUILD_ID > build_id.txt"
-// //   sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v$(cat build_id.txt)|' todo_app_deployment.yml"
-//            }
+// sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\${env.BUILD_ID}|' todo_app_deployment.yml"
+     sh "echo $BUILD_ID > build_id.txt"
+     sh "cat build_id.txt"        
+               sh "sed -i 's|${BUILD_ID}|$(cat build_id.txt)|' todo_app_deployment.yml"
+           }
            }
            
 //     stage('Deploy') {
