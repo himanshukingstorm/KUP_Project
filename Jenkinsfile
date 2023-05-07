@@ -12,40 +12,41 @@ pipeline  {
             }
   
   stages    {
-   stage('Build') {
-                  when {
-                    anyOf {
-                      branch 'feature/*'
-                      branch 'develop'
-                          }
-                       }
-                     steps {
-                        echo "Build Number:  $BUILD_NUMBER  Build ID: $BUILD_ID BUILD_TAG: $BUILD_TAG"
-                        echo "GIT_COMMIT: $GIT_COMMIT JOB_NAME: $JOB_NAME"
-                       
-                        sh 'docker build -t todo-app-py:V.$GIT_COMMIT .'
-                        echo "This is Build Based on Docker Image version $GIT_COMMIT"
-                        echo "Build Success"
-                           }
-                  }
-
-      
     stage('Test') {
                     when {
                       anyOf {
                         branch 'feature/*'
-                        branch 'develop'
+//                         branch 'develop'
+                        branch 'main'
                             }
                          }
                     steps {
                       sh 'echo "Test Success"'
                           }
                   }
+   stage('Build') {
+                  when {
+                    anyOf {
+//                       branch 'feature/*'
+//                       branch 'develop'
+                      branch 'main'
+                          }
+                       }
+                     steps {
+                        echo "Build Number:  $BUILD_NUMBER  Build ID: $BUILD_ID BUILD_TAG: $BUILD_TAG"
+                        echo "GIT_COMMIT: $GIT_COMMIT JOB_NAME: $JOB_NAME"
+                       
+                        sh 'docker build -t todo-app-py:v$BUILD_ID .'
+                        echo "This is Build Based on Docker Image version v$BUILD_ID"
+                        echo "Build Success"
+                           }
+                  }
       
     stage('Login Dockerhub') {
                   when {
                     anyOf {
-                      branch 'develop'
+//                       branch 'develop'
+                      branch 'main'
                           }
                        }
 
@@ -59,15 +60,16 @@ pipeline  {
     stage('Push into Dockerhub') {
                   when {
                     anyOf {
-                      branch 'develop'
+//                       branch 'develop'
+                      branch 'main'
                           }
                        }
 
                     steps {
-                      sh "docker tag todo-app-py:V.$GIT_COMMIT himanshukingstorm/todo-app-py:V.$GIT_COMMIT"
-                      sh "docker push himanshukingstorm/todo-app-py:V.$GIT_COMMIT"
+                      sh "docker tag todo-app-py:v$BUILD_ID himanshukingstorm/todo-app-py:v$BUILD_ID"
+                      sh "docker push himanshukingstorm/todo-app-py:v$BUILD_ID"
 
-                        echo "This Push is Based on Docker Image as Version :V.$GIT_COMMIT"
+                        echo "This Push is Based on Docker Image as Version :v$BUILD_ID"
                         echo "Pushed with Success into Dockerhub"
                           }
                   }
