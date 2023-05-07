@@ -95,7 +95,7 @@ pipeline  {
 //                     // Write the modified YAML back to the file
 //                     writeFile file: 'todo_app_deployment.yml', text: modifiedYamlContent
 //                 }
-      
+//     }      
       
       
       
@@ -129,6 +129,6 @@ pipeline  {
 //                   //           sh "kubectl --kubeconfig=$my_var expose deployment finalproject --type=LoadBalancer --port=8000"          
 //                                                                                           }
 //                           }  
-                    }    
+//                     }    
             }
        }
