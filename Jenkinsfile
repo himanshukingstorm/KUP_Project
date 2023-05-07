@@ -2,12 +2,12 @@ pipeline  {
   agent any
   
   triggers  {
-    githubPullRequest (
-      triggerOnPush: true,
-      triggerOnSchedule: false,
-      triggerOnPoll: false,
-      branchFilterType: 'All',
-      cron: ''
+    githubPush (
+//       triggerOnPush: true,
+//       triggerOnSchedule: false,
+//       triggerOnPoll: false,
+//       branchFilterType: 'All',
+//       cron: ''
                       )
             }
   
