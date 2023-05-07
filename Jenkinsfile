@@ -12,11 +12,24 @@ pipeline  {
             }
   
   stages    {
+    stage('Test') {
+                    when {
+                      anyOf {
+                        branch 'feature/*'
+//                         branch 'develop'
+                        branch 'main'
+                            }
+                         }
+                    steps {
+                      sh 'echo "Test Success"'
+                          }
+                  }
    stage('Build') {
                   when {
                     anyOf {
-                      branch 'feature/*'
-                      branch 'develop'
+//                       branch 'feature/*'
+//                       branch 'develop'
+
                       branch 'main'
                           }
                        }
@@ -31,23 +44,11 @@ pipeline  {
                   }
 
       
-    stage('Test') {
-                    when {
-                      anyOf {
-                        branch 'feature/*'
-                        branch 'develop'
-                        branch 'main'
-                            }
-                         }
-                    steps {
-                      sh 'echo "Test Success"'
-                          }
-                  }
-      
     stage('Login Dockerhub') {
                   when {
                     anyOf {
-                      branch 'develop'
+//                       branch 'develop'
+
                       branch 'main'
                           }
                        }
@@ -62,7 +63,8 @@ pipeline  {
     stage('Push into Dockerhub') {
                   when {
                     anyOf {
-                      branch 'develop'
+//                       branch 'develop'
+
                       branch 'main'
                           }
                        }
