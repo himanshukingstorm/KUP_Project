@@ -25,14 +25,14 @@ pipeline  {
                           }
                   }
    stage('Build') {
-                  when {
-                    anyOf {
-//                       branch 'feature/*'
-//                       branch 'develop'
+//                   when {
+//                     anyOf {
+// //                       branch 'feature/*'
+// //                       branch 'develop'
 
-//                       branch 'main'
-                          }
-                       }
+// //                       branch 'main'
+//                           }
+//                        }
                      steps {
                         echo "Build Number:  $BUILD_NUMBER  Build ID: $BUILD_ID BUILD_TAG: $BUILD_TAG"
                         echo "GIT_COMMIT: $GIT_COMMIT JOB_NAME: $JOB_NAME"
@@ -45,13 +45,13 @@ pipeline  {
 
       
     stage('Login Dockerhub') {
-                  when {
-                    anyOf {
-//                       branch 'develop'
+//                   when {
+//                     anyOf {
+// //                       branch 'develop'
 
-//                       branch 'main'
-                          }
-                       }
+// //                       branch 'main'
+//                           }
+//                        }
 
                     steps {
                       withCredentials([string(credentialsId: 'kingstorm_dh', variable: 'DOCKER_TOKEN')]) {
@@ -61,13 +61,13 @@ pipeline  {
                   }
     
     stage('Push into Dockerhub') {
-                  when {
-                    anyOf {
-//                       branch 'develop'
+//                   when {
+//                     anyOf {
+// //                       branch 'develop'
 
-//                       branch 'main'
-                          }
-                       }
+// //                       branch 'main'
+//                           }
+//                        }
 
                     steps {
                       sh "docker tag todo-app-py:v$BUILD_ID himanshukingstorm/todo-app-py:v$BUILD_ID"
