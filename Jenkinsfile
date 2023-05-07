@@ -77,7 +77,18 @@ pipeline  {
                         echo "Pushed with Success into Dockerhub"
                           }
                   }
-
+    stage ('Update Manifest){
+           when {
+                      anyOf {
+                        branch 'main'
+                            }
+                          }
+           
+           steps {
+                sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\*|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|' todo_app_deployment.yaml"
+           }
+           }
+           
     stage('Deploy') {
                     when {
                       anyOf {
