@@ -16,7 +16,7 @@ pipeline  {
                   when {
                     anyOf {
                       branch 'feature/*'
-//                       branch 'develop'
+                      branch 'develop'
                           }
                        }
                      steps {
@@ -31,6 +31,7 @@ pipeline  {
                     when {
                       anyOf {
                         branch 'feature/*'
+                        branch 'develop'
                             }
                          }
                     steps {
