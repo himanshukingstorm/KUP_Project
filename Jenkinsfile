@@ -85,7 +85,7 @@ pipeline  {
                           }
            
            steps {
-//                 sh "ls -l"
+                sh "echo $BUILD_ID"
                 sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|' todo_app_deployment.yml"
            }
            }
