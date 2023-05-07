@@ -18,7 +18,7 @@ pipeline {
     stage('Build') {
 //       when {
 //         anyOf {
-//           branch 'master'
+//           branch 'main'
 //         }
 //       }
       steps {
