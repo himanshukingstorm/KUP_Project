@@ -86,9 +86,11 @@ pipeline  {
            
            steps {
                 sh "echo $BUILD_ID"
-sh "awk -v build_id=${env.BUILD_ID} '/image: himanshukingstorm\\/todo-app-py:v/ {sub(/v\\$/, "v" build_id)} {print}' todo_app_deployment.yml > temp.yaml && mv temp.yaml todo_app_deployment.yml"
+// sh "awk -v build_id=${env.BUILD_ID} '/image: himanshukingstorm\\/todo-app-py:v/ {sub(/v\\$/, "v" build_id)} {print}' todo_app_deployment.yml > temp.yaml && mv temp.yaml todo_app_deployment.yml"
 
 //                 sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\${env.BUILD_ID}|' todo_app_deployment.yml"
+     sh "echo $BUILD_ID > build_id.txt"
+sh "sed -i "s|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v$(cat build_id.txt)|" todo_app_deployment.yml"
            }
            }
            
