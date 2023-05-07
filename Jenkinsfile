@@ -126,6 +126,6 @@ pipeline  {
 //                   //           sh "kubectl --kubeconfig=$my_var expose deployment finalproject --type=LoadBalancer --port=8000"          
 //                                                                                           }
 //                           }  
-//                     }    
+                    }    
             }
        }
