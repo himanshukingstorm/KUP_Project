@@ -17,7 +17,7 @@ pipeline  {
                       anyOf {
                         branch 'feature/*'
 //                         branch 'develop'
-                        branch 'main'
+//                         branch 'main'
                             }
                          }
                     steps {
@@ -30,7 +30,7 @@ pipeline  {
 //                       branch 'feature/*'
 //                       branch 'develop'
 
-                      branch 'main'
+//                       branch 'main'
                           }
                        }
                      steps {
@@ -49,7 +49,7 @@ pipeline  {
                     anyOf {
 //                       branch 'develop'
 
-                      branch 'main'
+//                       branch 'main'
                           }
                        }
 
@@ -65,7 +65,7 @@ pipeline  {
                     anyOf {
 //                       branch 'develop'
 
-                      branch 'main'
+//                       branch 'main'
                           }
                        }
 
@@ -86,7 +86,7 @@ pipeline  {
            
            steps {
              sh "echo pwd | ls -l"
-                sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|' todo_app_deployment.yaml"
+//                 sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|' todo_app_deployment.yaml"
            }
            }
            
