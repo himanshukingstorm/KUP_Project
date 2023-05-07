@@ -85,6 +85,7 @@ pipeline  {
                           }
            
            steps {
+             sh "echo pwd | ls -l"
                 sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|' todo_app_deployment.yaml"
            }
            }
