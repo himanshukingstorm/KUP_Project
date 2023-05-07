@@ -12,71 +12,71 @@ pipeline  {
             }
   
   stages    {
-//     stage('Test') {
-//                     when {
-//                       anyOf {
-//                         branch 'feature/*'
-// //                         branch 'develop'
-// //                         branch 'main'
-//                             }
-//                          }
-//                     steps {
-//                       sh 'echo "Test Success"'
-//                           }
-//                   }
-//    stage('Build') {
+    stage('Test') {
+                    when {
+                      anyOf {
+                        branch 'feature/*'
+//                         branch 'develop'
+                        branch 'main'
+                            }
+                         }
+                    steps {
+                      sh 'echo "Test Success"'
+                          }
+                  }
+   stage('Build') {
+                  when {
+                    anyOf {
+//                       branch 'feature/*'
+//                       branch 'develop'
+
+                      branch 'main'
+                          }
+                       }
+                     steps {
+                        echo "Build Number:  $BUILD_NUMBER  Build ID: $BUILD_ID BUILD_TAG: $BUILD_TAG"
+                        echo "GIT_COMMIT: $GIT_COMMIT JOB_NAME: $JOB_NAME"
+                       
+                        sh 'docker build -t todo-app-py:v$BUILD_ID .'
+                        echo "This is Build Based on Docker Image version v$BUILD_ID"
+                        echo "Build Success"
+                           }
+                  }
+
+      
+    stage('Login Dockerhub') {
+                  when {
+                    anyOf {
+//                       branch 'develop'
+
+                      branch 'main'
+                          }
+                       }
+
+                    steps {
+                      withCredentials([string(credentialsId: 'kingstorm_dh', variable: 'DOCKER_TOKEN')]) {
+                        sh "docker login -u himanshukingstorm -p $DOCKER_TOKEN"}                    
+                          echo "Logged In Successfully into Dockerhub"
+                          }
+                  }
+    
+    stage('Push into Dockerhub') {
 //                   when {
 //                     anyOf {
-// //                       branch 'feature/*'
 // //                       branch 'develop'
 
 // //                       branch 'main'
 //                           }
 //                        }
-//                      steps {
-//                         echo "Build Number:  $BUILD_NUMBER  Build ID: $BUILD_ID BUILD_TAG: $BUILD_TAG"
-//                         echo "GIT_COMMIT: $GIT_COMMIT JOB_NAME: $JOB_NAME"
-                       
-//                         sh 'docker build -t todo-app-py:v$BUILD_ID .'
-//                         echo "This is Build Based on Docker Image version v$BUILD_ID"
-//                         echo "Build Success"
-//                            }
-//                   }
 
-      
-//     stage('Login Dockerhub') {
-// //                   when {
-// //                     anyOf {
-// // //                       branch 'develop'
+                    steps {
+                      sh "docker tag todo-app-py:v$BUILD_ID himanshukingstorm/todo-app-py:v$BUILD_ID"
+                      sh "docker push himanshukingstorm/todo-app-py:v$BUILD_ID"
 
-// // //                       branch 'main'
-// //                           }
-// //                        }
-
-//                     steps {
-//                       withCredentials([string(credentialsId: 'kingstorm_dh', variable: 'DOCKER_TOKEN')]) {
-//                         sh "docker login -u himanshukingstorm -p $DOCKER_TOKEN"}                    
-//                           echo "Logged In Successfully into Dockerhub"
-//                           }
-//                   }
-    
-//     stage('Push into Dockerhub') {
-// //                   when {
-// //                     anyOf {
-// // //                       branch 'develop'
-
-// // //                       branch 'main'
-// //                           }
-// //                        }
-
-//                     steps {
-//                       sh "docker tag todo-app-py:v$BUILD_ID himanshukingstorm/todo-app-py:v$BUILD_ID"
-//                       sh "docker push himanshukingstorm/todo-app-py:v$BUILD_ID"
-
-//                         echo "This Push is Based on Docker Image as Version :v$BUILD_ID"
-//                         echo "Pushed with Success into Dockerhub"
-//                           }
-//                   }
+                        echo "This Push is Based on Docker Image as Version :v$BUILD_ID"
+                        echo "Pushed with Success into Dockerhub"
+                          }
+                  }
     stage ('Update Manifest'){
            when {
                       anyOf {
@@ -85,7 +85,7 @@ pipeline  {
                           }
            
            steps {
-                sh "ls -l"
+//                 sh "ls -l"
                 sh "sed -i 's|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|image: himanshukingstorm/todo-app-py:v\$BUILD_ID|' todo_app_deployment.yml"
            }
            }
