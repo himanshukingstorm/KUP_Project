@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: himanshukingstorm/todo-app-py:V.$GIT_COMMIT
+          image: himanshukingstorm/todo-app-py:V.$BUILD_TAG
           ports:
             - containerPort: 5000
             
