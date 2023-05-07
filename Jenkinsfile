@@ -29,6 +29,7 @@ pipeline  {
                     anyOf {
 //                       branch 'feature/*'
 //                       branch 'develop'
+
                       branch 'main'
                           }
                        }
@@ -41,11 +42,13 @@ pipeline  {
                         echo "Build Success"
                            }
                   }
+
       
     stage('Login Dockerhub') {
                   when {
                     anyOf {
 //                       branch 'develop'
+
                       branch 'main'
                           }
                        }
@@ -61,6 +64,7 @@ pipeline  {
                   when {
                     anyOf {
 //                       branch 'develop'
+
                       branch 'main'
                           }
                        }
