@@ -1,25 +1,28 @@
 pipeline  {
   agent any
   
-//   triggers  {
-//     githubPullRequest (
+  triggers  {
+    githubPush (
 //       triggerOnPush: true,
 //       triggerOnSchedule: false,
 //       triggerOnPoll: false,
 //       branchFilterType: 'All',
 //       cron: ''
-//                       )
-//             }
+                      )
+            }
   
   stages    {
    stage('Build') {
                   when {
                     anyOf {
                       branch 'feature/*'
-//                       branch 'develop'
+                      branch 'develop'
                           }
                        }
                      steps {
+                        echo "Build Number:  $BUILD_NUMBER  Build ID: $BUILD_ID BUILD_TAG: $BUILD_TAG"
+                        echo "GIT_COMMIT: $GIT_COMMIT JOB_NAME: $JOB_NAME"
+                       
                         sh 'docker build -t todo-app-py:V.$GIT_COMMIT .'
                         echo "This is Build Based on Docker Image version $GIT_COMMIT"
                         echo "Build Success"
@@ -31,6 +34,7 @@ pipeline  {
                     when {
                       anyOf {
                         branch 'feature/*'
+                        branch 'develop'
                             }
                          }
                     steps {
@@ -60,7 +64,7 @@ pipeline  {
                        }
 
                     steps {
-                      sh "docker tag todo-app-py:V.$BUILD_NUMBER himanshukingstorm/todo-app-py:V.$GIT_COMMIT"
+                      sh "docker tag todo-app-py:V.$GIT_COMMIT himanshukingstorm/todo-app-py:V.$GIT_COMMIT"
                       sh "docker push himanshukingstorm/todo-app-py:V.$GIT_COMMIT"
 
                         echo "This Push is Based on Docker Image as Version :V.$GIT_COMMIT"
