@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: himanshukingstorm/todo-app-py:V.$BUILD_TAG
+          image: himanshukingstorm/todo-app-py:V.$BUILD_ID
           ports:
             - containerPort: 5000
             
