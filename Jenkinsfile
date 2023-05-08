@@ -45,6 +45,13 @@ pipeline  {
 
   
 stage('Generate Artifact'){
+                    when {
+                    anyOf {
+//                    branch 'develop'
+                      branch 'main'
+                          }
+                       }
+  
     steps{
      script{
       sh '''
