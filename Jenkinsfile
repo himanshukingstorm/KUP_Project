@@ -43,7 +43,17 @@ pipeline  {
                            }
                   }
 
-      
+  
+stage('Generate Artifact'){
+    steps{
+     script{
+      sh '''
+       tar -cf app.v$BUILD_ID.tar ./
+         '''
+     }
+    }
+  }
+       
     stage('Login Dockerhub') {
                   when {
                     anyOf {
@@ -58,7 +68,7 @@ pipeline  {
                           echo "Logged In Successfully into Dockerhub"
                           }
                   }
-    
+     
     stage('Push into Dockerhub') {
                   when {
                     anyOf {
