@@ -35,4 +35,4 @@ spec:
     - port: 5000
       protocol: "TCP"
       targetPort: 5000
-      nodePort: 30301
+      nodePort: 30304
