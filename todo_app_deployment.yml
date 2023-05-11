@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-app
+  name: todo-app-flask
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: todo-app
+      run: todo-app-flask
   template:
     metadata:
       labels:
-        run: todo-app
+        run: todo-app-flask
     spec:
       containers:
-        - name: todo-app
-          image: himanshukingstorm/todo-app-py:v.version
+        - name: todo-app-flask
+          image: himanshukingstorm/todo-app-py-flask:v.version
           ports:
             - containerPort: 5000
             
@@ -23,13 +23,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: todo-app
+  name: todo-app-flask
   labels:
-    run: todo-app
+    run: todo-app-flask
 
 spec:
   selector:
-    run: todo-app
+    run: todo-app-flask
   type: NodePort
   ports:
     - port: 5000
