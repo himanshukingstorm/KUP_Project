@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: himanshukingstorm/todo-app-py:version1
+          image: himanshukingstorm/todo-app-py:v.version
           ports:
             - containerPort: 5000
             
@@ -35,4 +35,4 @@ spec:
     - port: 5000
       protocol: "TCP"
       targetPort: 5000
-      nodePort: 30301
+      nodePort: 30304
