@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: todo-app-flask
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       run: todo-app-flask
