@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: todo-app-flask
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       run: todo-app-flask
@@ -19,6 +19,7 @@ spec:
             - containerPort: 5000
             
 ---
+# Service YAML FILE
 
 apiVersion: v1
 kind: Service
